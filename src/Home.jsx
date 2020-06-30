@@ -44,7 +44,7 @@ function App() {
   return (
     <Wrapper active={toggle}>
       <form onSubmit={submitName}>
-        <div>You name?</div>
+        <div>Your name?</div>
         <input
           type="text"
           value={name}
@@ -53,7 +53,7 @@ function App() {
         <input type="submit" />
       </form>
       <form onSubmit={submitFavoriteAnimal}>
-        <div>You favorite animal?</div>
+        <div>Your favorite animal?</div>
         <input
           type="text"
           value={favoriteAnimal}
