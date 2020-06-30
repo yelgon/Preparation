@@ -2,11 +2,14 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 const BackgroundTheme = styled.div`
-  height: 100vh;
+  height: 100%;
   background-color: ${(props) => (props.active ? "black" : "white")};
   color: ${(props) => (props.active ? "white" : "black")};
   ol {
     margin: 0;
+  }
+  li {
+    padding: 5px;
   }
 `;
 
@@ -25,13 +28,12 @@ function App() {
 
   function themeToggle() {
     if (toggle) {
-      console.log(toggle);
       return setToggle(false);
     } else {
-      console.log(toggle);
       return setToggle(true);
     }
   }
+  console.log(posts);
 
   return (
     <BackgroundTheme active={toggle}>
@@ -40,7 +42,10 @@ function App() {
       </div>
       <ol>
         {posts.map((post, idx) => (
-          <li key={idx}>{post.title},</li>
+          <li key={idx}>
+            {post.title}, <br />
+            {post.author}
+          </li>
         ))}
       </ol>
     </BackgroundTheme>
