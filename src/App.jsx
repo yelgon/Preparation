@@ -1,27 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { BrowserRouter, Route } from "react-router-dom";
+import Home from "./Home.jsx";
 
 function App() {
-  const [posts, setPosts] = useState([]);
-
-  useEffect(() => {
-    async function fetchData() {
-      const response = await fetch("https://www.reddit.com/r/reactjs.json");
-      const json = await response.json();
-      setPosts(json.data.children.map((c) => c.data));
-    }
-    fetchData();
-  }, [setPosts]);
-  console.log(posts);
-
   return (
-    <div>
-      <ol>
-        {posts.map((post, idx) => (
-          <li key={idx}>{post.title},</li>
-        ))}
-      </ol>
-    </div>
+    <BrowserRouter>
+      <Route exact={true} path="/">
+        <Home />
+      </Route>
+    </BrowserRouter>
   );
 }
-
 export default App;
