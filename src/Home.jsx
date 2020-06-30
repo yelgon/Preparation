@@ -1,54 +1,73 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
-const BackgroundTheme = styled.div`
-  height: 100%;
+const Wrapper = styled.div`
+  height: 100vh;
   background-color: ${(props) => (props.active ? "black" : "white")};
   color: ${(props) => (props.active ? "white" : "black")};
-  ol {
-    margin: 0;
+
+  button {
+    font-size: 45px;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
   }
-  li {
-    padding: 5px;
+  @media (max-width: 650px) {
+    button {
+      font-size: 25px;
+      top: 10;
+    }
   }
 `;
 
 function App() {
-  const [posts, setPosts] = useState([]);
   const [toggle, setToggle] = useState(false);
-
-  useEffect(() => {
-    async function fetchData() {
-      const response = await fetch("https://www.reddit.com/r/reactjs.json");
-      const json = await response.json();
-      setPosts(json.data.children.map((c) => c.data));
-    }
-    fetchData();
-  }, [setPosts]);
+  const [name, setName] = useState("");
+  const [favoriteAnimal, setFavoriteAnimal] = useState("");
+  const [nameShowing, setNameShowing] = useState("");
+  const [favoriteAnimalShowing, setfavoriteAnimalShowing] = useState("");
 
   function themeToggle() {
     if (toggle) {
       return setToggle(false);
-    } else {
-      return setToggle(true);
     }
+    setToggle(true);
   }
-  console.log(posts);
-
+  const submitName = (event) => {
+    event.preventDefault();
+    setNameShowing(name);
+  };
+  const submitFavoriteAnimal = (event) => {
+    event.preventDefault();
+    setfavoriteAnimalShowing(favoriteAnimal);
+  };
   return (
-    <BackgroundTheme active={toggle}>
-      <div style={{ textAlign: "center" }}>
+    <Wrapper active={toggle}>
+      <form onSubmit={submitName}>
+        <div>You name?</div>
+        <input
+          type="text"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
+        <input type="submit" />
+      </form>
+      <form onSubmit={submitFavoriteAnimal}>
+        <div>You favorite animal?</div>
+        <input
+          type="text"
+          value={favoriteAnimal}
+          onChange={(e) => setFavoriteAnimal(e.target.value)}
+        />
+        <input type="submit" />
+      </form>
+      {nameShowing && <div>{name}</div>}
+      {favoriteAnimalShowing && <div>{favoriteAnimal}</div>}
+
+      <div>
         <button onClick={themeToggle}>Background Theme</button>
       </div>
-      <ol>
-        {posts.map((post, idx) => (
-          <li key={idx}>
-            {post.title}, <br />
-            {post.author}
-          </li>
-        ))}
-      </ol>
-    </BackgroundTheme>
+    </Wrapper>
   );
 }
 
