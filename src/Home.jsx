@@ -15,7 +15,6 @@ const Wrapper = styled.div`
   @media (max-width: 650px) {
     button {
       font-size: 25px;
-      top: 10;
     }
   }
 `;
